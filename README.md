@@ -45,6 +45,116 @@ Datini breaks the language barrier. It doesn't just support English; it is nativ
 
 Datini uses the **Google Agent Development Kit (ADK)** to orchestrate a team of AI specialists. We do not use a single generic model; we use a "Separation of Concerns" architecture to ensure accuracy.
 
+### System overview
+
+Clients (Owner PWA + ChatBot), backend (Express → Command Center → 9 agents), and Gemini 3.
+
+```mermaid
+flowchart LR
+    subgraph CUSTOMER["CUSTOMER INTERFACE"]
+        WA["WhatsApp Simulator\n(React Component)"]
+    end
+
+    subgraph BACKEND["NODE.JS BACKEND"]
+        GW["Express API Gateway"]
+        CC["Command Center\nAgent 0"]
+        AL["Agent Layer\n9 Specialized Agents"]
+        DB[(MongoDB Atlas)]
+    end
+
+    subgraph OWNER["OWNER INTERFACE"]
+        PWA["React PWA\nDashboard + Voice"]
+    end
+
+    subgraph GEMINI["GEMINI 3 API"]
+        FL["Flash\n(routing, chat, CRUD)"]
+        PR["Pro\n(vision, reasoning, GST)"]
+    end
+
+    WA -->|"REST / Socket.IO"| GW
+    PWA -->|"REST / Socket.IO"| GW
+    GW --> CC
+    CC --> AL
+    AL --> DB
+    AL -->|"model calls"| FL
+    AL -->|"model calls"| PR
+```
+
+### High-level architecture
+
+Full stack: client layer, API/middleware, agent layer, services, data layer, and AI layer.
+
+```mermaid
+flowchart TB
+    subgraph CLIENTS["CLIENT LAYER"]
+        C1["Owner PWA\n(React + Vite + Tailwind)"]
+        C2["ChatBot Chat\n(React WhatsApp Simulator)"]
+    end
+
+    subgraph API["API LAYER — Express.js"]
+        R1["POST /api/voice-command"]
+        R2["POST /api/chat/message"]
+        R3["POST /api/orders"]
+        R4["GET  /api/dashboard"]
+        R5["POST /api/inventory/scan"]
+        R6["GET  /api/gst/summary"]
+        R7["GET  /api/customers"]
+        R8["Socket.IO /events"]
+    end
+
+    subgraph MW["MIDDLEWARE LAYER"]
+        AUTH["Auth Middleware\n(session/phone verification)"]
+        VAL["Validation Middleware\n(Joi / Zod)"]
+        ERR["Error Handler"]
+        RATE["Rate Limiter"]
+    end
+
+    subgraph AGENTS["AGENT LAYER — Google ADK"]
+        A0["Agent 0: Command Center\n(Intent Router)"]
+        A1["Agent 1: Bookkeeper"]
+        A2["Agent 2: Inventory Vision"]
+        A3["Agent 3: Supplier Intel"]
+        A4["Agent 4: Pricing"]
+        A5["Agent 5: GST"]
+        A6["Agent 6: Business Insights"]
+        A7["Agent 7: ChatBot NLU"]
+        A8["Agent 8: Order Manager"]
+    end
+
+    subgraph SVC["SERVICE LAYER"]
+        GS["GeminiService"]
+        ES["EventService\n(Socket.IO emitter)"]
+        CS["CacheService\n(Node-cache / Redis)"]
+    end
+
+    subgraph DATA["DATA LAYER — MongoDB"]
+        MONGO[(MongoDB Atlas)]
+        COLL1["businesses"]
+        COLL2["products"]
+        COLL3["transactions"]
+        COLL4["orders"]
+        COLL5["customers"]
+        COLL6["creditEntries"]
+        COLL7["chatSessions"]
+        COLL8["suppliers"]
+        COLL9["inventorySnapshots"]
+    end
+
+    subgraph AI["AI LAYER — Gemini 3"]
+        FLASH["Gemini 3 Flash"]
+        PRO["Gemini 3 Pro"]
+    end
+
+    C1 & C2 --> MW
+    MW --> R1 & R2 & R3 & R4 & R5 & R6 & R7 & R8
+    R1 & R2 & R3 & R4 & R5 & R6 & R7 --> A0
+    A0 --> A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8
+    A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 --> SVC
+    SVC --> MONGO
+    GS --> FLASH & PRO
+    R8 -.->|"real-time push"| C1 & C2
+```
+
 ```mermaid
 flowchart TD
     User((User Input)) --> A0[Agent 0: Command Center]
