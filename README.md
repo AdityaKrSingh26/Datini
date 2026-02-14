@@ -1,4 +1,4 @@
-# 🛒 Datini
+<img width="3282" height="1924" alt="image" src="https://github.com/user-attachments/assets/3c3148da-6edd-45e0-a1e2-12924d9c88d3" /># 🛒 Datini
 
 **The Multi-Agent AI Partner for the Indian Kirana Store.**
 
@@ -42,7 +42,8 @@ Datini breaks the language barrier. It doesn't just support English; it is nativ
 
 ---
 ## UI examples 
-![Uploading image.png…]()
+<img width="3282" height="1924" alt="image" src="https://github.com/user-attachments/assets/ba442479-c8b1-4d66-b628-07367deff7a8" />
+
 
 ---
 
