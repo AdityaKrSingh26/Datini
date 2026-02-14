@@ -1,4 +1,4 @@
-<img width="3282" height="1924" alt="image" src="https://github.com/user-attachments/assets/3c3148da-6edd-45e0-a1e2-12924d9c88d3" /># 🛒 Datini
+# 🛒 Datini
 
 **The Multi-Agent AI Partner for the Indian Kirana Store.**
 
