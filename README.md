@@ -447,36 +447,6 @@ erDiagram
 | **[architecture.md](./architecture.md)**   | Full technical architecture: system overview, agent topology, API design, MongoDB schema, Gemini integration, voice/inventory pipelines, Socket.IO events, prompt engineering, tech stack, backend structure, test cases, seed data, and frontend generation prompt.                                                                                |
 | **[SYSTEM_PROMPT.md](./SYSTEM_PROMPT.md)** | Single source of truth for AI assistants (Cursor, Claude, etc.) and developers: product identity, architecture summary, tech stack, agent roles, A2A flows, KiranaBot state machine, order pipeline, data model, API surface, real-time events, prompt principles, project structure, and conventions. Use as system context before implementation. |
 
-### Phase Plans (Implementation Guides)
-
-Phased build plans with agent context, structure, and acceptance criteria:
-
-| Phase | File                                                                     | Focus                                                                                |
-| ----- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| 1     | [plan-phase1-foundation.md](./plan-phase1-foundation.md)                 | Project scaffolding, MongoDB connection, 9 Mongoose models, seed data, server entry  |
-| 2     | [plan-phase2-services-agents.md](./plan-phase2-services-agents.md)       | Services (Gemini, Event, Cache), agent base, Command Center                          |
-| 3     | [plan-phase3-owner-agents.md](./plan-phase3-owner-agents.md)             | Owner-facing agents (Bookkeeper, Inventory Vision, Supplier, Pricing, GST, Insights) |
-| 4     | [plan-phase4-chatbot-orders.md](./plan-phase4-chatbot-orders.md)         | KiranaBot (Agent 7), Order Manager (Agent 8), ChatSession, order lifecycle           |
-| 5     | [plan-phase5-api-realtime.md](./plan-phase5-api-realtime.md)             | REST routes, Socket.IO, validation, auth                                             |
-| 6     | [plan-phase6-frontend.md](./plan-phase6-frontend.md)                     | React PWA, dashboard, voice, inventory scan, KiranaBot UI                            |
-| 7     | [plan-phase7-integration-deploy.md](./plan-phase7-integration-deploy.md) | Integration, E2E, deployment (Vercel, Cloud Run/Railway, MongoDB Atlas)              |
-
----
-
-## Tech Stack (Summary)
-
-| Layer      | Technology                                             |
-| ---------- | ------------------------------------------------------ |
-| Runtime    | Node.js 20 LTS                                         |
-| Backend    | Express 4.x, Socket.IO 4.x                             |
-| Database   | MongoDB Atlas (M0), Mongoose 8.x                       |
-| AI         | Gemini 3 (Flash + Pro) via @google/genai               |
-| Agents     | Google ADK (JS), 9 specialized agents                  |
-| Validation | Zod 3.x                                                |
-| Frontend   | React 18, Vite, Tailwind, Web Speech API, getUserMedia |
-| Deploy     | Vercel (frontend), Cloud Run / Railway (backend)       |
-
----
 
 ## Quick Reference
 
@@ -486,13 +456,3 @@ Phased build plans with agent context, structure, and acceptance criteria:
 - **Order ID format:** `KRN-YYYY-XXXX` (e.g. `KRN-2026-0042`)
 
 ---
-
-## Using This Documentation
-
-1. **Implementing features** — Start with [SYSTEM_PROMPT.md](./SYSTEM_PROMPT.md) for context, then use [architecture.md](./architecture.md) for schemas, sequences, and boilerplate.
-2. **Building from scratch** — Follow phases 1 → 7 in order; each plan includes agent context, structure, and acceptance criteria.
-3. **AI-assisted development** — Feed [SYSTEM_PROMPT.md](./SYSTEM_PROMPT.md) (and relevant architecture sections) as system context to Cursor, Claude, or similar tools.
-
----
-
-_Datini — Technical Architecture v3.0 · Last updated: February 2026_
