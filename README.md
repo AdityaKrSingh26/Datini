@@ -39,6 +39,11 @@ Datini breaks the language barrier. It doesn't just support English; it is nativ
 | **Compliance** | Expensive accountants | **Agentic GST:** Real-time tax & Input Tax Credit (ITC) logs. |
 | **Languages** | English-only interfaces | **Polyglot:** Hindi, Tamil, Telugu, Kannada, English, Hinglish. |
 
+
+---
+## UI examples 
+![Uploading image.png…]()
+
 ---
 
 ## 🧠 The Intelligence: 9 Specialized Agents
